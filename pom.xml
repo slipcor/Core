@@ -56,11 +56,4 @@
             </plugin>
         </plugins>
     </build>
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub slipcor Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/slipcor/Core</url>
-        </repository>
-    </distributionManagement>
 </project>
