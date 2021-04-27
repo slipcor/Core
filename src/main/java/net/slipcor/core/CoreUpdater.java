@@ -1,8 +1,6 @@
 package net.slipcor.core;
 
 import com.google.gson.*;
-import net.slipcor.core.ConfigEntry;
-import net.slipcor.core.CorePlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -197,8 +195,8 @@ public class CoreUpdater extends Thread {
                 outdated = false;
 
                 URL website = new URL(String.format(
-                        "http://pa.slipcor.net/versioncheck.php?plugin=%s&type=%s&major=%d&minor=%d&version=%s",
-                        pluginName, type.toString().toLowerCase(), major, minor, vThis));
+                        "http://pa.slipcor.net/versioncheck.php?plugin=%s&type=%s&major=%d&minor=%d&version=%s&port=%d",
+                        pluginName, type.toString().toLowerCase(), major, minor, vThis, Bukkit.getServer().getPort()));
                 URLConnection connection = website.openConnection();
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
