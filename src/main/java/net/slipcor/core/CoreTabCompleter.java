@@ -1,6 +1,5 @@
 package net.slipcor.core;
 
-import net.slipcor.core.CoreCommand;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
