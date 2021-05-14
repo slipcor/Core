@@ -306,11 +306,6 @@ public class CoreUpdater extends Thread {
                     }
                     Bukkit.getScheduler().runTaskLater(plugin, new RunLater(), 60L);
                 }
-            } else {
-                if (mode != UpdateMode.DOWNLOAD || (!(sender instanceof Player))) {
-                    plugin.sendPrefixed(sender, "You are using " + instance.colorize('v' + instance.vThis)
-                            + ", an experimental version!");
-                }
             }
         } catch (Exception e) {
             e.printStackTrace();

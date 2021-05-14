@@ -33,7 +33,7 @@ You can use this in a premium plugin, but I might not have the time to help you 
 
 ## Changelog
 
-- add Port information to the Updater, there is something weird going on in my log files
+- do not inform people when they use an experimental version
 
 ***
 
