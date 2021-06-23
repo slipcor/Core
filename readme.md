@@ -33,7 +33,7 @@ You can use this in a premium plugin, but I might not have the time to help you 
 
 ## Changelog
 
-- do not inform people when they use an experimental version
+- do not log prefixed messages unless sent to console
 
 ***
 

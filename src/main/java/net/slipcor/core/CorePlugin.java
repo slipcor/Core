@@ -1,6 +1,5 @@
 package net.slipcor.core;
 
-import net.slipcor.core.CoreConfig;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -120,6 +119,7 @@ public abstract class CorePlugin extends JavaPlugin {
 
         if (sender instanceof Player) {
             sender.sendMessage(getMessagePrefix() + message);
+            return;
         }
 
         this.getLogger().info(message);
