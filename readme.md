@@ -33,7 +33,8 @@ You can use this in a premium plugin, but I might not have the time to help you 
 
 ## Changelog
 
-- introduce empty lines between commented config nodes
+- v0.2.1 - start proper versioning to make updating easier
+[more](changelog.md)
 
 ***
 
