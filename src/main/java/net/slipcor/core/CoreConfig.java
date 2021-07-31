@@ -74,7 +74,6 @@ public abstract class CoreConfig {
                 }
 
                 final int firstContentCharacter = (indent * 2);
-                boolean weAddedComment = false;
 
                 if (readLine.contains(":")) {
                     final String newStringLine = readLine.split(":")[0] + ":";
@@ -147,18 +146,15 @@ public abstract class CoreConfig {
                         value.append("  ");
                     }
                     if (entry.getComment() != null && !entry.getComment().isEmpty()) {
+                        writer.newLine();
                         writer.append(value);
                         writer.append("# ");
                         writer.append(entry.getComment());
                         writer.newLine();
-                        weAddedComment = true;
                     }
                 }
                 writer.append(readLine);
                 writer.newLine();
-                if (weAddedComment) {
-                    writer.newLine();
-                }
             }
 
             writer.flush();
