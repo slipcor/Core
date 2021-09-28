@@ -1,3 +1,7 @@
+#v0.3 - Colors!
+
+v0.3.0 - support hex colors, attempt backwards compatibility
+
 #v0.2 - Versioning
 
 v0.2.1 - start proper versioning to make updating easier

@@ -1,8 +1,11 @@
 package net.slipcor.core;
 
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public abstract class CoreLanguage {
     protected final CorePlugin plugin;
@@ -58,4 +61,24 @@ public abstract class CoreLanguage {
      * @return all LanguageEntry enums
      */
     protected abstract LanguageEntry[] getAllNodes();
+
+    private final static Pattern hexPattern = Pattern.compile("<#([A-Fa-f0-9]){6}>");
+
+    public static String colorize(String message) {
+        if (message.contains("<#")) {
+            try {
+                Matcher matcher = hexPattern.matcher(message);
+                while (matcher.find()) {
+                    final ChatColor hexColor = ChatColor.of(matcher.group().substring(1, matcher.group().length() - 1));
+                    final String before = message.substring(0, matcher.start());
+                    final String after = message.substring(matcher.end());
+                    message = before + hexColor + after;
+                    matcher = hexPattern.matcher(message);
+                }
+            } catch (Exception e) {
+
+            }
+        }
+        return ChatColor.translateAlternateColorCodes('&', message);
+    }
 }
