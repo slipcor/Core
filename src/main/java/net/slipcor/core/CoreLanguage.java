@@ -75,8 +75,8 @@ public abstract class CoreLanguage {
                     message = before + hexColor + after;
                     matcher = hexPattern.matcher(message);
                 }
-            } catch (Exception e) {
-
+            } catch (NoSuchMethodError e) {
+                // we do not know this yet!
             }
         }
         return ChatColor.translateAlternateColorCodes('&', message);
