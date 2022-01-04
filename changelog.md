@@ -1,5 +1,6 @@
 #v0.3 - Colors!
 
+v0.3.2 - try to fix paper error?
 v0.3.1 - accomplish backwards compatibility
 v0.3.0 - support hex colors, attempt backwards compatibility
 

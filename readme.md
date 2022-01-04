@@ -33,7 +33,7 @@ You can use this in a premium plugin, but I might not have the time to help you 
 
 ## Changelog
 
-- v0.2.1 - start proper versioning to make updating easier
+- v0.3.2 - try to fix paper error?
 [more](changelog.md)
 
 ***
