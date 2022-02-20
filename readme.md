@@ -33,7 +33,7 @@ You can use this in a premium plugin, but I might not have the time to help you 
 
 ## Changelog
 
-- v0.3.3 - add URL verification to prevent tampering with it
+- v0.3.4 - add URL verification to prevent tampering with it - release version
 [more](changelog.md)
 
 ***

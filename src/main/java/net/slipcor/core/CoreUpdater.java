@@ -241,11 +241,10 @@ public class CoreUpdater extends Thread {
                             verification = object.getAsJsonPrimitive("verification").getAsString();
 
                             if (verification == null || challengeFailed(challenge, verification, url, vThis)) {
-                                System.err.println("Challenge verification failed! Someone tampered with the URL?");
+                                plugin.getLogger().severe("Challenge verification failed! Someone tampered with the URL?");
                                 url = defaultURL;
                                 return;
                             }
-                            System.out.println("Challenge verification successful!");
                         } else {
                             return;
                         }
@@ -265,13 +264,10 @@ public class CoreUpdater extends Thread {
         }
 
         private boolean challengeFailed(String challenge, String verification, String url, String vThis) throws NoSuchAlgorithmException {
-
             MessageDigest digest = MessageDigest.getInstance("SHA-512");
             digest.reset();
             digest.update(vThis.getBytes());
             String versionHash = String.format("%0128x", new BigInteger(1, digest.digest()));
-
-            System.out.println("version hash: " + versionHash);
 
             String urlCheck = versionHash + url;
             digest.reset();
@@ -279,16 +275,11 @@ public class CoreUpdater extends Thread {
 
             String urlResult = String.format("%0128x", new BigInteger(1, digest.digest()));
 
-            System.out.println("url hash: " + urlResult);
-
             String doubleCheck = urlResult + challenge;
             digest.reset();
             digest.update(doubleCheck.getBytes());
 
             String result = String.format("%0128x", new BigInteger(1, digest.digest()));
-
-            System.out.println("result hash: " + result);
-            System.out.println("verification hash: " + verification);
 
             return !result.equals(verification);
         }
