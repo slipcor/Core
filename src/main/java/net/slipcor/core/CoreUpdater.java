@@ -7,10 +7,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class CoreUpdater extends Thread {
     private final UpdateMode mode;
@@ -24,6 +27,7 @@ public class CoreUpdater extends Thread {
 
     private UpdateInstance instance = null;
     private String defaultURL;
+    private String verification;
 
     protected enum UpdateMode {
         OFF, ANNOUNCE, DOWNLOAD, BOTH;
@@ -123,6 +127,7 @@ public class CoreUpdater extends Thread {
         private String vThis;             // our full plugin version
         private final String pluginName;  // the plugin identifier
         private String url;               // the download URL
+        private String challenge;         // the verification key
 
         UpdateInstance(String checkName) {
             pluginName = checkName;
@@ -194,9 +199,15 @@ public class CoreUpdater extends Thread {
 
                 outdated = false;
 
+                MessageDigest digest = MessageDigest.getInstance("SHA-512");
+                digest.reset();
+                digest.update(String.valueOf(System.currentTimeMillis()).getBytes());
+                challenge = String.format("%0128x", new BigInteger(1, digest.digest()));
+
                 URL website = new URL(String.format(
-                        "http://pa.slipcor.net/versioncheck.php?plugin=%s&type=%s&major=%d&minor=%d&version=%s&port=%d",
-                        pluginName, type.toString().toLowerCase(), major, minor, vThis, Bukkit.getServer().getPort()));
+                        "http://pa.slipcor.net/versioncheck.php?plugin=%s&type=%s&major=%d&minor=%d&version=%s&port=%d&challenge=%s",
+                        pluginName, type.toString().toLowerCase(), major, minor, vThis, Bukkit.getServer().getPort(),
+                        challenge));
                 URLConnection connection = website.openConnection();
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
@@ -227,6 +238,14 @@ public class CoreUpdater extends Thread {
                             version = object.getAsJsonPrimitive("version").getAsString();
                             updateDigit = object.getAsJsonPrimitive("digit").getAsByte();
                             url = object.getAsJsonPrimitive("link").getAsString();
+                            verification = object.getAsJsonPrimitive("verification").getAsString();
+
+                            if (verification == null || challengeFailed(challenge, verification, url, vThis)) {
+                                System.err.println("Challenge verification failed! Someone tampered with the URL?");
+                                url = defaultURL;
+                                return;
+                            }
+                            System.out.println("Challenge verification successful!");
                         } else {
                             return;
                         }
@@ -243,6 +262,35 @@ public class CoreUpdater extends Thread {
             } catch (final Exception e) {
                 e.printStackTrace();
             }
+        }
+
+        private boolean challengeFailed(String challenge, String verification, String url, String vThis) throws NoSuchAlgorithmException {
+
+            MessageDigest digest = MessageDigest.getInstance("SHA-512");
+            digest.reset();
+            digest.update(vThis.getBytes());
+            String versionHash = String.format("%0128x", new BigInteger(1, digest.digest()));
+
+            System.out.println("version hash: " + versionHash);
+
+            String urlCheck = versionHash + url;
+            digest.reset();
+            digest.update(urlCheck.getBytes());
+
+            String urlResult = String.format("%0128x", new BigInteger(1, digest.digest()));
+
+            System.out.println("url hash: " + urlResult);
+
+            String doubleCheck = urlResult + challenge;
+            digest.reset();
+            digest.update(doubleCheck.getBytes());
+
+            String result = String.format("%0128x", new BigInteger(1, digest.digest()));
+
+            System.out.println("result hash: " + result);
+            System.out.println("verification hash: " + verification);
+
+            return !result.equals(verification);
         }
     }
 
