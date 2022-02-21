@@ -33,7 +33,7 @@ You can use this in a premium plugin, but I might not have the time to help you 
 
 ## Changelog
 
-- v0.3.5 - move to HTTPS to prevent tampering
+- v0.3.6 - do not append spacer lines when not needed (when was that changed?)
 [more](changelog.md)
 
 ***

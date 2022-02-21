@@ -1,5 +1,6 @@
 #v0.3 - Colors!
 
+v0.3.6 - do not append spacer lines when not needed (when was that changed?)
 v0.3.5 - move to HTTPS to prevent tampering
 v0.3.4 - add URL verification to prevent tampering with it - release version
 v0.3.3 - add URL verification to prevent tampering with it

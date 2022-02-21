@@ -69,7 +69,7 @@ public abstract class CoreConfig {
                     writer.newLine();
                 }
 
-                if (readLine.trim().startsWith("#") || readLine.isEmpty()) {
+                if (readLine.trim().startsWith("#") || readLine.trim().isEmpty()) {
                     continue;
                 }
 
