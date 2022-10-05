@@ -276,6 +276,7 @@ public class CoreUpdater extends Thread {
                         output.close();
 
                     } catch (IOException exception) {
+                        exception.printStackTrace();
                         error = true;
                     }
 

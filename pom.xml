@@ -6,7 +6,7 @@
 
     <groupId>net.slipcor</groupId>
     <artifactId>core</artifactId>
-    <version>0.3.6</version>
+    <version>0.3.7</version>
 
     <properties>
         <maven.compiler.source>13</maven.compiler.source>
