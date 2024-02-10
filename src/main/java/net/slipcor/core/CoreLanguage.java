@@ -1,6 +1,6 @@
 package net.slipcor.core;
 
-import net.md_5.bungee.api.ChatColor;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -69,7 +69,7 @@ public abstract class CoreLanguage {
             try {
                 Matcher matcher = hexPattern.matcher(message);
                 while (matcher.find()) {
-                    final ChatColor hexColor = ChatColor.of(matcher.group().substring(1, matcher.group().length() - 1));
+                    final net.md_5.bungee.api.ChatColor hexColor = net.md_5.bungee.api.ChatColor.of(matcher.group().substring(1, matcher.group().length() - 1));
                     final String before = message.substring(0, matcher.start());
                     final String after = message.substring(matcher.end());
                     message = before + hexColor + after;
@@ -78,6 +78,7 @@ public abstract class CoreLanguage {
             } catch (NoSuchMethodError e) {
                 // we do not know this yet!
             }
+            return net.md_5.bungee.api.ChatColor.translateAlternateColorCodes('&', message);
         }
         return ChatColor.translateAlternateColorCodes('&', message);
     }
